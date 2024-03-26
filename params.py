@@ -1,4 +1,4 @@
-"""Parameters file for Kumpe3D-Python"""
+"""Parameters file"""
 
 import setup  # pylint: disable=unused-import, wrong-import-order
 import os
@@ -16,10 +16,11 @@ creds = infisical_api(
 
 class Params:
     """Parameters"""
-    preprod: bool = True if app_env == 'dev' else False
+
+    preprod: bool = True if app_env == "dev" else False
 
     class SQL:
-        """SQL Parameters for Web_3d User"""
+        """SQL Parameters"""
 
         username = creds.get_secret(  # pylint: disable=no-member
             secret_name="USERNAME", environment=app_env, path="/MYSQL/"
@@ -33,7 +34,7 @@ class Params:
         port = creds.get_secret(  # pylint: disable=no-member
             secret_name="PORT", environment=app_env, path="/MYSQL/"
         ).secretValue
-        database = "BOT_Data"
+        database = "Automation_PrintQueue"
 
         @staticmethod
         def dict():
@@ -45,13 +46,6 @@ class Params:
                 "port": Params.SQL.port,
                 "database": Params.SQL.database,
             }
-
-    class KumpeApps:
-        """KumpeApps Params"""
-
-        api_key = creds.get_secret(  # pylint: disable=no-member
-            secret_name="KUMPEAPPS", environment=app_env, path="/API/"
-        ).secretValue
 
 
 if __name__ == "__main__":
