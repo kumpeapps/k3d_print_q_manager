@@ -42,7 +42,7 @@ def generate_label(sku: str, label_type: str, qty: int, customer_id=0):
             "https://www.kumpe3d.com/product_labels.php?sku="
             + sku
             + "&customer_id="
-            + customer_id,
+            + str(customer_id),
             "product_label.pdf",
             label_type,
             qty,
@@ -52,7 +52,7 @@ def generate_label(sku: str, label_type: str, qty: int, customer_id=0):
             "https://www.kumpe3d.com/product_label_2.php?sku="
             + sku
             + "&customer_id="
-            + customer_id,
+            + str(customer_id),
             "square_product_label.pdf",
             label_type,
             qty,
@@ -62,7 +62,7 @@ def generate_label(sku: str, label_type: str, qty: int, customer_id=0):
             "https://www.kumpe3d.com/barcode_label.php?sku="
             + sku
             + "&customer_id="
-            + customer_id,
+            + str(customer_id),
             "barcode_label.pdf",
             label_type,
             qty,
