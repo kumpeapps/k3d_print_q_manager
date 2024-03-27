@@ -71,10 +71,9 @@ def generate_label(sku: str, label_type: str, qty: int, customer_id=0):
         raise ValueError(f"Label Type {label_type} Not Supported")
 
 
-def print_label(label_type: str, qty: int):
+def print_label(label_type: str, qty: int, enable_print: bool = True):
     """Print Product Label PDF to Printer"""
     # Only print in production environment
-    enable_print = True
     if enable_print:
         if label_type == "product label":
             os.system(
