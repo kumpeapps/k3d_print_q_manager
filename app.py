@@ -14,7 +14,7 @@ def print_label(customer_id, sku, label, qty):
         printcommands.print_product_label(sku, label, qty, customer_id)
         return "OK"
     except ValueError:
-        return f"Label Type {label} not supported"
+        return f"Label Type {label} not supported", 422
 
 @app.route("/print_bundle/<int:customer_id>/<string:sku>/<int:qty>", methods=["POST"])
 def print_bundle(customer_id, sku, qty):
@@ -23,7 +23,7 @@ def print_bundle(customer_id, sku, qty):
         printcommands.print_label_bundle(sku, qty, customer_id)
         return "OK"
     except:
-        return "Unknown Error"
+        return "Unknown Error", 422
 
 
 if __name__ == "__main__":
