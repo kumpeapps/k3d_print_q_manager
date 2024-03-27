@@ -8,12 +8,12 @@ def generate_pdf(url, pdf_path, label_type: str, qty: int, enable_print: bool = 
     """Generate PDF from URL"""
     print(url)
     paper_size = {"height": 1.97, "width": 3.15}
-    if label_type == "product label":
+    if label_type == "product_label":
         pass
-    elif label_type == "barcode label":
+    elif label_type == "barcode_label":
         paper_size["height"] = 1.18
         paper_size["width"] = 1.57
-    elif label_type == "square product label":
+    elif label_type == "square_product_label":
         paper_size["height"] = 1.96
         paper_size["width"] = 1.96
     else:
@@ -37,7 +37,7 @@ def generate_pdf(url, pdf_path, label_type: str, qty: int, enable_print: bool = 
 # Run the function
 def generate_label(sku: str, label_type: str, qty: int, customer_id=0, enable_print: bool = True):
     """Generate PDF Product Label"""
-    if label_type == "product label":
+    if label_type == "product_label":
         generate_pdf(
             "https://www.kumpe3d.com/product_labels.php?sku="
             + sku
@@ -48,7 +48,7 @@ def generate_label(sku: str, label_type: str, qty: int, customer_id=0, enable_pr
             qty,
             enable_print,
         )
-    elif label_type == "square product label":
+    elif label_type == "square_product_label":
         generate_pdf(
             "https://www.kumpe3d.com/product_label_2.php?sku="
             + sku
@@ -59,7 +59,7 @@ def generate_label(sku: str, label_type: str, qty: int, customer_id=0, enable_pr
             qty,
             enable_print,
         )
-    elif label_type == "barcode label":
+    elif label_type == "barcode_label":
         generate_pdf(
             "https://www.kumpe3d.com/barcode_label.php?sku="
             + sku
@@ -78,15 +78,15 @@ def print_label(label_type: str, qty: int, enable_print: bool = True):
     """Print Product Label PDF to Printer"""
     # Only print in production environment
     if enable_print:
-        if label_type == "product label":
+        if label_type == "product_label":
             os.system(
                 f"lp -d Product_Label_Printer -o media=50x80mm -o orientation-requested=4 product_label.pdf -n {qty}" #pylint: disable=line-too-long
             )
-        elif label_type == "square product label":
+        elif label_type == "square_product_label":
             os.system(
                 f"lp -d Square_Product_Label_Printer -o media=50x50mm square_product_label.pdf -n {qty}" #pylint: disable=line-too-long
             )
-        elif label_type == "barcode label":
+        elif label_type == "barcode_label":
             os.system(
                 f"lp -d Barcode_Label_Printer -o media=40x30mm barcode_label.pdf -n {qty}"
             )
@@ -105,6 +105,6 @@ def print_product_label(sku: str, label_type: str, qty: int = 1, customer_id=0, 
 
 def print_label_bundle(sku: str, qty: int = 1, customer_id=0):
     """Print Product Label and Barcode Bundle"""
-    print_product_label(sku, "product label", 1, customer_id)
-    print_product_label(sku, "square product label", qty, customer_id)
-    print_product_label(sku, "barcode label", qty, customer_id)
+    print_product_label(sku, "product_label", 1, customer_id)
+    print_product_label(sku, "square_product_label", qty, customer_id)
+    print_product_label(sku, "barcode_label", qty, customer_id)
