@@ -5,5 +5,5 @@ cp printmanager.service /etc/systemd/system/printmanager.service
 systemctl daemon-reload
 ln -sf printmanager-ssl.conf /etc/apache2/sites-enabled/printmanagerssl.conf
 systemctl start printmanager
-systmectl enable printmanager
+systemctl enable printmanager
 systemctl restart apache2
