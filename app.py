@@ -10,7 +10,11 @@ app = Flask(__name__)
 @app.route("/print_label/<int:customer_id>/<string:sku>/<string:label>/<int:qty>", methods=["POST"])
 def print_label(customer_id, sku, label, qty):
     """Print Label"""
-    try: 
+    print(f"Customer ID: {customer_id}")
+    print(f"sku: {sku}")
+    print(f"Label: {label}")
+    print(f"qty: {qty}")
+    try:
         printcommands.print_product_label(sku, label, qty, customer_id)
         return "OK"
     except ValueError:
