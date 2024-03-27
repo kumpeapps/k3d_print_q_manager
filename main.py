@@ -1,6 +1,6 @@
 """Kumpe3D Print Q Manager"""
 
-from flask import Flask
+from flask import Flask, request
 import printcommands
 
 
@@ -11,6 +11,7 @@ app = Flask(__name__)
 def print_label(customer_id, sku, label, qty):
     """Print Label"""
     printcommands.print_product_label(sku, label, qty, customer_id)
+    return "OK"
 
 
 @app.route("/print_bundle/<int:customer_id>/<string:sku>/<int:qty>", methods=["POST"])
