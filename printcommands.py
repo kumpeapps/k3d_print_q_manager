@@ -4,7 +4,7 @@ import os
 from pyhtml2pdf import converter
 
 
-def generate_pdf(url, pdf_path, label_type: str, qty: int):
+def generate_pdf(url, pdf_path, label_type: str, qty: int, enable_print: bool = True):
     """Generate PDF from URL"""
     print(url)
     paper_size = {"height": 1.97, "width": 3.15}
@@ -31,11 +31,11 @@ def generate_pdf(url, pdf_path, label_type: str, qty: int):
             "paperWidth": paper_size["width"],
         },
     )
-    print_label(label_type, qty)
+    print_label(label_type, qty, enable_print)
 
 
 # Run the function
-def generate_label(sku: str, label_type: str, qty: int, customer_id=0):
+def generate_label(sku: str, label_type: str, qty: int, customer_id=0, enable_print: bool = True):
     """Generate PDF Product Label"""
     if label_type == "product label":
         generate_pdf(
@@ -46,6 +46,7 @@ def generate_label(sku: str, label_type: str, qty: int, customer_id=0):
             "product_label.pdf",
             label_type,
             qty,
+            enable_print,
         )
     elif label_type == "square product label":
         generate_pdf(
@@ -56,6 +57,7 @@ def generate_label(sku: str, label_type: str, qty: int, customer_id=0):
             "square_product_label.pdf",
             label_type,
             qty,
+            enable_print,
         )
     elif label_type == "barcode label":
         generate_pdf(
@@ -66,6 +68,7 @@ def generate_label(sku: str, label_type: str, qty: int, customer_id=0):
             "barcode_label.pdf",
             label_type,
             qty,
+            enable_print,
         )
     else:
         raise ValueError(f"Label Type {label_type} Not Supported")
@@ -91,11 +94,11 @@ def print_label(label_type: str, qty: int, enable_print: bool = True):
         pass
 
 
-def print_product_label(sku: str, label_type: str, qty: int = 1, customer_id=0):
+def print_product_label(sku: str, label_type: str, qty: int = 1, customer_id=0, enable_print: bool = True):
     """Prints Product Label"""
     try:
         print(sku)
-        generate_label(sku, label_type, qty, customer_id)
+        generate_label(sku, label_type, qty, customer_id, enable_print)
     except KeyError:
         print(f"Invalid SKU {sku}")
 
