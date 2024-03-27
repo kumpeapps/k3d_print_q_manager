@@ -7,7 +7,7 @@ import printcommands
 app = Flask(__name__)
 
 
-@app.route("/print_label/<int:customer_id>/<string:sku>/<str:label>/<int:qty>", methods=["POST"])
+@app.route("/print_label/<int:customer_id>/<string:sku>/<string:label>/<int:qty>", methods=["POST"])
 def print_label(customer_id, sku, label, qty):
     """Print Label"""
     printcommands.print_product_label(sku, label, qty, customer_id)
