@@ -3,7 +3,7 @@
 import multiprocessing
 
 workers = 4
-bind = "unix:kumpe3dapi.sock"  # pylint: disable=invalid-name
+bind = "unix:printmanagerapi.sock"  # pylint: disable=invalid-name
 umask = 0o007  # pylint: disable=invalid-name
 reload = True  # pylint: disable=invalid-name
 
