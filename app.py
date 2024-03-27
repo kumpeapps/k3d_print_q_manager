@@ -10,12 +10,11 @@ app = Flask(__name__)
 @app.route("/print_label/<int:customer_id>/<string:sku>/<string:label>/<int:qty>", methods=["POST"])
 def print_label(customer_id, sku, label, qty):
     """Print Label"""
-    return {"cust": customer_id, "sku": sku, "lab": label, "qty": qty}
-    # try:
-    #     printcommands.print_product_label(sku, label, qty, customer_id)
-    #     return "OK"
-    # except ValueError:
-    #     return f"Label Type {label} not supported", 422
+    try:
+        printcommands.print_product_label(sku, label, qty, customer_id)
+        return "OK"
+    except ValueError:
+        return f"Label Type {label} not supported", 422
 
 @app.route("/print_bundle/<int:customer_id>/<string:sku>/<int:qty>", methods=["POST"])
 def print_bundle(customer_id, sku, qty):
