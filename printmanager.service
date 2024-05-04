@@ -4,10 +4,10 @@ After=network.target
 
 [Service]
 User=root
-Group=www-data
+Group=root
 WorkingDirectory=/home/justinkumpe/k3d_print_q_manager/
 Environment="PATH=/home/justinkumpe/k3d_print_q_manager/venv/bin"
-ExecStart=/home/justinkumpe/k3d_print_q_manager/venv/bin/gunicorn --config gunicorn_config.py app:app --error-logfile /var/log/apache2/printmanager-api.log
+ExecStart=/home/justinkumpe/k3d_print_q_manager/venv/bin/python3 /home/justinkumpe/k3d_print_q_manager/monitor.py
 
 [Install]
 WantedBy=multi-user.target
