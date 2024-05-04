@@ -58,7 +58,7 @@ def monitor():
         cursor.close()
         db.close()
         print("sleep")
-        time.sleep(15)
+        time.sleep(5)
 
 
 if __name__ == "__main__":
