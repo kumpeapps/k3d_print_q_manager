@@ -31,7 +31,6 @@ def generate_pdf(url, pdf_path, label_type: str, qty: int, enable_print: bool = 
             "paperHeight": paper_size["height"],
             "paperWidth": paper_size["width"],
         },
-        install_driver=False,
     )
     print_label(label_type, qty, enable_print)
 
