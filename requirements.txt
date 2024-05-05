@@ -5,7 +5,7 @@ charset-normalizer==3.3.2
 click==8.1.7
 exceptiongroup==1.2.0
 flask==3.0.2
-gunicorn==21.2.0
+gunicorn==22.0.0
 h11==0.14.0
 idna==3.6
 importlib-metadata==7.1.0
