@@ -47,6 +47,13 @@ class Params:
                 "database": Params.SQL.database,
             }
 
+    class WEB:
+        """WEB Parameters"""
+
+        base_url = creds.get_secret(  # pylint: disable=no-member
+            secret_name="BASE_URL", environment=app_env, path="/WEB/"
+        ).secretValue
+
 
 if __name__ == "__main__":
     print(

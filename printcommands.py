@@ -3,6 +3,7 @@
 import os
 from pyhtml2pdf import converter
 import scan_list_builder as slb
+from params import Params as params
 
 
 def generate_pdf(url, pdf_path, label_type: str, qty: int, enable_print: bool = True):
@@ -14,11 +15,14 @@ def generate_pdf(url, pdf_path, label_type: str, qty: int, enable_print: bool = 
     elif label_type == "barcode_label":
         paper_size["height"] = 1.18
         paper_size["width"] = 1.57
+    elif label_type == "wide_barcode_label":
+        paper_size["height"] = 1.18
+        paper_size["width"] = 1.96
     elif label_type == "square_product_label":
         paper_size["height"] = 1.96
         paper_size["width"] = 1.96
     else:
-        raise ValueError(f"Label Type {label_type} is not supported")
+        raise ValueError(f"Generating Label Type {label_type} is not supported. Paper Size is unknown")
 
     converter.convert(
         url,
@@ -47,7 +51,7 @@ def generate_label(
     """Generate PDF Product Label"""
     if label_type == "product_label":
         generate_pdf(
-            "https://www.kumpe3d.com/product_labels.php?sku="
+            f"{params.WEB.base_url}/product_labels.php?sku="
             + sku
             + "&qr_data="
             + qr_data
@@ -60,7 +64,7 @@ def generate_label(
         )
     elif label_type == "square_product_label":
         generate_pdf(
-            "https://www.kumpe3d.com/product_label_2.php?sku="
+            f"{params.WEB.base_url}/product_label_2.php?sku="
             + sku
             + "&qr_data="
             + qr_data
@@ -73,7 +77,7 @@ def generate_label(
         )
     elif label_type == "barcode_label":
         generate_pdf(
-            "https://www.kumpe3d.com/barcode_label.php?sku="
+            f"{params.WEB.base_url}/barcode_label.php?sku="
             + sku
             + "&distributor="
             + str(customer_id),
@@ -82,8 +86,19 @@ def generate_label(
             qty,
             enable_print,
         )
+    elif label_type == "wide_barcode_label":
+        generate_pdf(
+            f"{params.WEB.base_url}/wide_barcode_label.php?sku="
+            + sku
+            + "&distributor="
+            + str(customer_id),
+            "wide_barcode_label.pdf",
+            label_type,
+            qty,
+            enable_print,
+        )
     else:
-        raise ValueError(f"Label Type {label_type} Not Supported")
+        raise ValueError(f"Generating Label Type {label_type} Not Supported. URL is unknown.")
 
 
 def print_label(label_type: str, qty: int, enable_print: bool = True):
@@ -102,6 +117,12 @@ def print_label(label_type: str, qty: int, enable_print: bool = True):
             os.system(
                 f"lp -d Barcode_Label_Printer -o media=40x30mm barcode_label.pdf -n {qty}"
             )
+        elif label_type == "wide_barcode_label":
+            os.system(
+                f"lp -d Wide_Barcode_Label_Printer -o media=40x30mm wide_barcode_label.pdf -n {qty}"
+            )
+        else:
+            raise ValueError(f"Printing Label Type {label_type} Not Supported. Printer name is unknown.")
     else:
         pass
 
