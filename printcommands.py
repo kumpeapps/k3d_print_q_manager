@@ -21,6 +21,12 @@ def generate_pdf(url, pdf_path, label_type: str, qty: int, enable_print: bool = 
     elif label_type == "square_product_label":
         paper_size["height"] = 1.96
         paper_size["width"] = 1.96
+    elif label_type == "shipping_label":
+        paper_size["height"] = 6
+        paper_size["width"] = 4
+    elif label_type == "packing_slip":
+        paper_size["height"] = 6
+        paper_size["width"] = 4
     else:
         raise ValueError(
             f"Generating Label Type {label_type} is not supported. Paper Size is unknown"
@@ -99,6 +105,17 @@ def generate_label(
             qty,
             enable_print,
         )
+    elif label_type == "packing_slip":
+        generate_pdf(
+            f"{params.WEB.base_url}/packing_slip?order_id="
+            + sku
+            + "&distributor="
+            + str(customer_id),
+            "packing_slip.pdf",
+            label_type,
+            qty,
+            enable_print,
+        )
     else:
         raise ValueError(
             f"Generating Label Type {label_type} Not Supported. URL is unknown."
@@ -124,6 +141,14 @@ def print_label(label_type: str, qty: int, enable_print: bool = True):
         elif label_type == "wide_barcode_label":
             os.system(
                 f"lp -d Wide_Barcode_Label_Printer -o media=50x30mm wide_barcode_label.pdf -n {qty}"
+            )
+        elif label_type == "shipping_label":
+            os.system(
+                f"lp -d Shipping_Label_Printer -o media=4x6in shipping_label.pdf -n {qty}"
+            )
+        elif label_type == "packing_slip":
+            os.system(
+                f"lp -d Shipping_Label_Printer -o media=4x6in packing_slip.pdf -n {qty}"
             )
         else:
             raise ValueError(
