@@ -22,7 +22,9 @@ def generate_pdf(url, pdf_path, label_type: str, qty: int, enable_print: bool = 
         paper_size["height"] = 1.96
         paper_size["width"] = 1.96
     else:
-        raise ValueError(f"Generating Label Type {label_type} is not supported. Paper Size is unknown")
+        raise ValueError(
+            f"Generating Label Type {label_type} is not supported. Paper Size is unknown"
+        )
 
     converter.convert(
         url,
@@ -98,7 +100,9 @@ def generate_label(
             enable_print,
         )
     else:
-        raise ValueError(f"Generating Label Type {label_type} Not Supported. URL is unknown.")
+        raise ValueError(
+            f"Generating Label Type {label_type} Not Supported. URL is unknown."
+        )
 
 
 def print_label(label_type: str, qty: int, enable_print: bool = True):
@@ -122,7 +126,9 @@ def print_label(label_type: str, qty: int, enable_print: bool = True):
                 f"lp -d Wide_Barcode_Label_Printer -o media=40x30mm wide_barcode_label.pdf -n {qty}"
             )
         else:
-            raise ValueError(f"Printing Label Type {label_type} Not Supported. Printer name is unknown.")
+            raise ValueError(
+                f"Printing Label Type {label_type} Not Supported. Printer name is unknown."
+            )
     else:
         pass
 
