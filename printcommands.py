@@ -123,7 +123,7 @@ def print_label(label_type: str, qty: int, enable_print: bool = True):
             )
         elif label_type == "wide_barcode_label":
             os.system(
-                f"lp -d Wide_Barcode_Label_Printer -o media=40x30mm wide_barcode_label.pdf -n {qty}"
+                f"lp -d Wide_Barcode_Label_Printer -o media=50x30mm wide_barcode_label.pdf -n {qty}"
             )
         else:
             raise ValueError(
