@@ -15,6 +15,9 @@ def generate_pdf(url, pdf_path, label_type: str, qty: int, enable_print: bool = 
     elif label_type == "barcode_label":
         paper_size["height"] = 1.18
         paper_size["width"] = 1.57
+    elif label_type == "part_filament_label":
+        paper_size["height"] = 1.18
+        paper_size["width"] = 1.57
     elif label_type == "wide_barcode_label":
         paper_size["height"] = 1.18
         paper_size["width"] = 1.96
@@ -94,6 +97,15 @@ def generate_label(
             qty,
             enable_print,
         )
+    elif label_type == "part_filament_label":
+        generate_pdf(
+            f"{params.WEB.base_url}/part_filament_label.php?swatch_id="
+            + sku,
+            "part_filament_label.pdf",
+            label_type,
+            qty,
+            enable_print,
+        )
     elif label_type == "wide_barcode_label":
         generate_pdf(
             f"{params.WEB.base_url}/wide_barcode_label.php?sku="
@@ -137,6 +149,10 @@ def print_label(label_type: str, qty: int, enable_print: bool = True):
         elif label_type == "barcode_label":
             os.system(
                 f"lp -d Barcode_Label_Printer -o media=40x30mm barcode_label.pdf -n {qty}"
+            )
+        elif label_type == "part_filament_label":
+            os.system(
+                f"lp -d Barcode_Label_Printer -o media=40x30mm part_filament_label.pdf -n {qty}"
             )
         elif label_type == "wide_barcode_label":
             os.system(
