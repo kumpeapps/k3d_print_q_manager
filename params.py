@@ -2,8 +2,10 @@
 
 import setup  # pylint: disable=unused-import, wrong-import-order
 import os
+import sys
 from dotenv import load_dotenv
 from infisical_api import infisical_api
+from loguru import logger
 
 
 load_dotenv()
@@ -12,6 +14,9 @@ app_env = os.getenv("APP_ENV")
 creds = infisical_api(
     service_token=service_token, infisical_url="https://creds.kumpeapps.com"
 )
+log_level = os.getenv("log_level", "INFO")
+logger.remove()
+logger.add(sys.stderr, level=log_level)
 
 
 class Params:
