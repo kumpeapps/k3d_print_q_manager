@@ -1,7 +1,7 @@
 """Kumpe3D Print Commands"""
 
 import os
-from pyhtml2pdf import converter
+import pdfkit
 import scan_list_builder as slb
 from params import Params as params
 
@@ -16,14 +16,14 @@ def generate_pdf(url, pdf_path, label_type: str, qty: int, enable_print: bool = 
         paper_size["height"] = 1.18
         paper_size["width"] = 1.57
     elif label_type == "part_filament_label":
-        paper_size["height"] = 1.18
-        paper_size["width"] = 1.57
+        paper_size["height"] = 30
+        paper_size["width"] = 40
     elif label_type == "wide_barcode_label":
         paper_size["height"] = 1.18
         paper_size["width"] = 1.96
     elif label_type == "square_product_label":
-        paper_size["height"] = 1.96
-        paper_size["width"] = 1.96
+        paper_size["height"] = 50
+        paper_size["width"] = 50
     elif label_type == "shipping_label":
         paper_size["height"] = 6
         paper_size["width"] = 4
@@ -35,16 +35,30 @@ def generate_pdf(url, pdf_path, label_type: str, qty: int, enable_print: bool = 
             f"Generating Label Type {label_type} is not supported. Paper Size is unknown"
         )
 
-    converter.convert(
+    # converter.convert(
+    #     url,
+    #     pdf_path,
+    #     print_options={
+    #         "marginBotton": 0,
+    #         "marginTop": 0,
+    #         "marginLeft": 0,
+    #         "marginRight": 0,
+    #         "paperHeight": paper_size["height"],
+    #         "paperWidth": paper_size["width"],
+    #     },
+    # )
+    pdfkit.from_url(
         url,
         pdf_path,
-        print_options={
-            "marginBotton": 0,
-            "marginTop": 0,
-            "marginLeft": 0,
-            "marginRight": 0,
-            "paperHeight": paper_size["height"],
-            "paperWidth": paper_size["width"],
+        options={
+            "-B": 0.01,
+            "-T": 1,
+            "-L": 1,
+            "-R": 1,
+            "page-height": paper_size["height"],
+            "page-width": paper_size["width"],
+            "print-media-type": "",
+            "disable-smart-shrinking": "",
         },
     )
     print_label(label_type, qty, enable_print)
