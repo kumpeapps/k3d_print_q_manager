@@ -1,10 +1,15 @@
 """Print Q Monitor"""
 
 import setup  # pylint: disable=unused-import, wrong-import-order
+import sys
 import time
 import pymysql
-from params import Params
+from loguru import logger
+from params import Params, log_level
 import printcommands as pc
+
+logger.remove()
+logger.add(sys.stderr, level=log_level)
 
 
 def monitor():
@@ -28,7 +33,6 @@ def monitor():
                                     idkumpe3d_labels = %s
     """
     while True:
-        print("run")
         db = pymysql.connect(
             db=sql_params.database,
             user=sql_params.username,
@@ -38,7 +42,6 @@ def monitor():
         )
         cursor = db.cursor(pymysql.cursors.DictCursor)
         try:
-            print("try")
             cursor.execute(kumpe3d_labels_sql)
             kumpe3d_labels_printq = cursor.fetchall()
             for print_job in kumpe3d_labels_printq:
@@ -52,12 +55,10 @@ def monitor():
                 )
                 cursor.execute(kumpe3d_labels_complete_sql, print_job["idkumpe3d_labels"])
                 db.commit()
-                print("done")
-        except:
-            print("ignore")
+        except Exception:
+            logger.exception("monitor exception")
         cursor.close()
         db.close()
-        print("sleep")
         time.sleep(5)
 
 
