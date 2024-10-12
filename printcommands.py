@@ -9,7 +9,7 @@ from params import Params as params
 def generate_pdf(url, pdf_path, label_type: str, qty: int, enable_print: bool = True):
     """Generate PDF from URL"""
     print(url)
-    paper_size = {"height": 1.97, "width": 3.15}
+    paper_size = {"height": 50.0, "width": 80.0}
     if label_type == "product_label":
         pass
     elif label_type == "barcode_label":
