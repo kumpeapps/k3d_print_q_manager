@@ -13,23 +13,23 @@ def generate_pdf(url, pdf_path, label_type: str, qty: int, enable_print: bool = 
     if label_type == "product_label":
         pass
     elif label_type == "barcode_label":
-        paper_size["height"] = 1.18
-        paper_size["width"] = 1.57
+        paper_size["height"] = 30
+        paper_size["width"] = 40
     elif label_type == "part_filament_label":
         paper_size["height"] = 30
         paper_size["width"] = 40
     elif label_type == "wide_barcode_label":
-        paper_size["height"] = 1.18
-        paper_size["width"] = 1.96
+        paper_size["height"] = 30
+        paper_size["width"] = 50
     elif label_type == "square_product_label":
         paper_size["height"] = 50
         paper_size["width"] = 50
     elif label_type == "shipping_label":
-        paper_size["height"] = 6
-        paper_size["width"] = 4
+        paper_size["height"] = 152.4
+        paper_size["width"] = 101.6
     elif label_type == "packing_slip":
-        paper_size["height"] = 6
-        paper_size["width"] = 4
+        paper_size["height"] = 152.4
+        paper_size["width"] = 101.6
     else:
         raise ValueError(
             f"Generating Label Type {label_type} is not supported. Paper Size is unknown"
