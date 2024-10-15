@@ -30,6 +30,9 @@ def generate_pdf(url, pdf_path, label_type: str, qty: int, enable_print: bool = 
     elif label_type == "packing_slip":
         paper_size["height"] = 152.4
         paper_size["width"] = 101.6
+    elif label_type == "case_label":
+        paper_size["height"] = 152.4
+        paper_size["width"] = 101.6
     else:
         raise ValueError(
             f"Generating Label Type {label_type} is not supported. Paper Size is unknown"
@@ -142,6 +145,15 @@ def generate_label(
             qty,
             enable_print,
         )
+    elif label_type == "case_label":
+        generate_pdf(
+            f"https://api.kumpe3d.com/label/caselabel?qr_data="
+            + qr_data,
+            "case_label.pdf",
+            label_type,
+            qty,
+            enable_print,
+        )
     else:
         raise ValueError(
             f"Generating Label Type {label_type} Not Supported. URL is unknown."
@@ -179,6 +191,10 @@ def print_label(label_type: str, qty: int, enable_print: bool = True):
         elif label_type == "packing_slip":
             os.system(
                 f"lp -d Shipping_Label_Printer -o media=4x6in packing_slip.pdf -n {qty}"
+            )
+        elif label_type == "case_label":
+            os.system(
+                f"lp -d Shipping_Label_Printer -o media=4x6in case_label.pdf -n {qty}"
             )
         else:
             raise ValueError(
