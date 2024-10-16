@@ -38,18 +38,6 @@ def generate_pdf(url, pdf_path, label_type: str, qty: int, enable_print: bool = 
             f"Generating Label Type {label_type} is not supported. Paper Size is unknown"
         )
 
-    # converter.convert(
-    #     url,
-    #     pdf_path,
-    #     print_options={
-    #         "marginBotton": 0,
-    #         "marginTop": 0,
-    #         "marginLeft": 0,
-    #         "marginRight": 0,
-    #         "paperHeight": paper_size["height"],
-    #         "paperWidth": paper_size["width"],
-    #     },
-    # )
     pdfkit.from_url(
         url,
         pdf_path,
@@ -79,12 +67,10 @@ def generate_label(
     """Generate PDF Product Label"""
     if label_type == "product_label":
         generate_pdf(
-            f"{params.WEB.base_url}/product_labels.php?sku="
+            f"{params.WEB.api_base_url}/label/shelflabel?sku="
             + sku
             + "&qr_data="
-            + qr_data
-            + "&distributor="
-            + str(customer_id),
+            + qr_data,
             "product_label.pdf",
             label_type,
             qty,
@@ -92,12 +78,10 @@ def generate_label(
         )
     elif label_type == "square_product_label":
         generate_pdf(
-            f"{params.WEB.base_url}/product_label_2.php?sku="
+            f"{params.WEB.api_base_url}/label/square_product_label?sku="
             + sku
             + "&qr_data="
-            + qr_data
-            + "&distributor="
-            + str(customer_id),
+            + qr_data,
             "square_product_label.pdf",
             label_type,
             qty,
@@ -147,7 +131,7 @@ def generate_label(
         )
     elif label_type == "case_label":
         generate_pdf(
-            f"https://api.kumpe3d.com/label/caselabel?qr_data="
+            f"{params.WEB.api_base_url}/caselabel?qr_data="
             + qr_data,
             "case_label.pdf",
             label_type,

@@ -58,6 +58,9 @@ class Params:
         base_url = creds.get_secret(  # pylint: disable=no-member
             secret_name="BASE_URL", environment=app_env, path="/WEB/"
         ).secretValue
+        api_base_url = creds.get_secret(  # pylint: disable=no-member
+            secret_name="API_BASE_URL", environment=app_env, path="/WEB/"
+        ).secretValue
 
 
 if __name__ == "__main__":
