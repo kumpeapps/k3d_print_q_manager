@@ -131,7 +131,7 @@ def generate_label(
         )
     elif label_type == "case_label":
         generate_pdf(
-            f"{params.WEB.api_base_url}/caselabel?qr_data="
+            f"{params.WEB.api_base_url}/label/caselabel?qr_data="
             + qr_data,
             "case_label.pdf",
             label_type,
