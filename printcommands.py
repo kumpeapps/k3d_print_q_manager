@@ -78,7 +78,7 @@ def generate_label(
         )
     elif label_type == "square_product_label":
         generate_pdf(
-            f"{params.WEB.api_base_url}/label/square_product_label?sku="
+            f"{params.WEB.api_base_url}/label/squareproductlabel?sku="
             + sku
             + "&qr_data="
             + qr_data,
