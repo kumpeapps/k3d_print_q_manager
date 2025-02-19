@@ -44,7 +44,7 @@ class Params:
         """WEB Parameters"""
 
         base_url = os.getenv("WEB_BASE_URL", "https://www.kumpe3d.com")
-        api_base_url = os.getenv("API_BASE_URL", "https://api.kumpeapps.us")
+        api_base_url = os.getenv("API_BASE_URL", "https://api.kumpe3d.com")
 
 
 if __name__ == "__main__":
