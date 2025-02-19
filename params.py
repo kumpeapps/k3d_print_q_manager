@@ -4,16 +4,12 @@ import setup  # pylint: disable=unused-import, wrong-import-order
 import os
 import sys
 from dotenv import load_dotenv
-from infisical_api import infisical_api
 from loguru import logger
 
 
 load_dotenv()
 service_token = os.getenv("SERVICE_TOKEN")
 app_env = os.getenv("APP_ENV")
-creds = infisical_api(
-    service_token=service_token, infisical_url="https://creds.kumpeapps.com"
-)
 log_level = os.getenv("log_level", "INFO")
 logger.remove()
 logger.add(sys.stderr, level=log_level)
@@ -27,19 +23,11 @@ class Params:
     class SQL:
         """SQL Parameters"""
 
-        username = creds.get_secret(  # pylint: disable=no-member
-            secret_name="USERNAME", environment=app_env, path="/MYSQL/"
-        ).secretValue
-        password = creds.get_secret(  # pylint: disable=no-member
-            secret_name="PASSWORD", environment=app_env, path="/MYSQL/"
-        ).secretValue
-        server = creds.get_secret(  # pylint: disable=no-member
-            secret_name="SERVER", environment=app_env, path="/MYSQL/"
-        ).secretValue
-        port = creds.get_secret(  # pylint: disable=no-member
-            secret_name="PORT", environment=app_env, path="/MYSQL/"
-        ).secretValue
-        database = "Automation_PrintQueue"
+        username = os.getenv("MYSQL_USERNAME", "amech_k3dprintqmanager")
+        password = os.getenv("MYSQL_PASSWORD", "")
+        server = os.getenv("MYSQL_SERVER", "rw.sql.pvt.kumpedns.us")
+        port = os.getenv("MYSQL_PORT", "3306")
+        database = os.getenv("MYSQL_DATABASE", "Automation_PrintQueue")
 
         @staticmethod
         def dict():
@@ -55,12 +43,8 @@ class Params:
     class WEB:
         """WEB Parameters"""
 
-        base_url = creds.get_secret(  # pylint: disable=no-member
-            secret_name="BASE_URL", environment=app_env, path="/WEB/"
-        ).secretValue
-        api_base_url = creds.get_secret(  # pylint: disable=no-member
-            secret_name="API_BASE_URL", environment=app_env, path="/WEB/"
-        ).secretValue
+        base_url = os.getenv("WEB_BASE_URL", "https://www.kumpe3d.com")
+        api_base_url = os.getenv("API_BASE_URL", "https://api.kumpeapps.us")
 
 
 if __name__ == "__main__":

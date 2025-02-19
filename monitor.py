@@ -3,7 +3,7 @@
 import setup  # pylint: disable=unused-import, wrong-import-order
 import sys
 import time
-import pymysql
+import pymysql # type: ignore
 from loguru import logger
 from params import Params, log_level
 import printcommands as pc
