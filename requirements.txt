@@ -12,7 +12,7 @@ idna==3.7
 importlib_metadata==7.1.0
 infisical_api==1.0.1
 itsdangerous==2.1.2
-Jinja2==3.1.4
+Jinja2==3.1.6
 kumpeapi==1.0.8
 loguru==0.7.2
 MarkupSafe==2.1.5
