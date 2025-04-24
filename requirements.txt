@@ -7,7 +7,7 @@ DateTime==5.5
 exceptiongroup==1.2.0
 Flask==3.0.2
 gunicorn==22.0.0
-h11==0.14.0
+h11==0.16.0
 idna==3.7
 importlib_metadata==7.1.0
 infisical_api==1.0.1
